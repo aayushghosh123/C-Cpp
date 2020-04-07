@@ -64,7 +64,7 @@ void showdata(int n){
             exit(0);
         }
         temp = temp->next;
-        n++;
+        x++;
         }
     }
     cout<<"Loop Not Detected......"<<endl;
