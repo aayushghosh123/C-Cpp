@@ -8,45 +8,72 @@ struct node{
 
     node(){
         data=0;
-        left = NULL;
-        right = NULL;
+        left = right = NULL;
     }
 };
 
+struct node *start=NULL;
+struct node *temp;
 
-node* getdata(node *start,int data){
-    if(start == NULL){
+
+node *binary_tree(node *start,int data){
+
+    if(start==NULL){
         start = new node();
         start->data = data;
         start->left = start->right = NULL;
     }
-    else if(start->data >= data){
-        start->left = getdata(start->left,data);
+    else{
+    temp = start;
+    struct node *parent;
+    while(temp != NULL){
+        if(flag==0){
+            flag=1;
+            parent = temp;
+            temp = temp->left;
+        }
+        else if(flag==1){
+            flag=0;
+            parent = temp;
+            temp = temp->right;
+        }
+    }
+
+    if(flag==1){
+        parent->left = new node();
+        parent->left->data = data;
     }
     else{
-        start->right = getdata(start->right,data);
+        parent->right = new node();
+        parent->right->data = data;
+    }
     }
     return start;
 }
 
-void showdata(node *root) {
-	if(root == NULL) 
+
+
+
+void showdata(node *start,string s){
+    if(start == NULL)
     return;
 
-	showdata(root->left);    
-	cout<<root->data<<endl; 
-	showdata(root->right); 
+    showdata(start->left,s+"->left");
+    cout<<s<<" "<<start->data<<endl;
+    showdata(start->right,s+"->right");
 }
 
+
 int main(){
-    node *start=NULL;
-    int n=0;
     cin>>n;
     int data=0;
     for(int i=0;i<n;i++){
-    cin>>data;
-    start = getdata(start,data);
+        cin>>data;
+    start = binary_tree(start,data);
     }
-    showdata(start);
+
+    string s;
+
+    showdata(start,s);
 
 }
