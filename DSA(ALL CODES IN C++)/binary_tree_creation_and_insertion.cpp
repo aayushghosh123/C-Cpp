@@ -14,7 +14,7 @@ struct node{
 
 struct node *start=NULL;
 struct node *temp;
-
+int flag=0;
 
 node *binary_tree(node *start,int data){
 
@@ -65,6 +65,7 @@ void showdata(node *start,string s){
 
 
 int main(){
+    int n=0;
     cin>>n;
     int data=0;
     for(int i=0;i<n;i++){
