@@ -2,79 +2,50 @@
 using namespace std;
 
 struct node{
-    int data;
     struct node *left;
+    int data;
     struct node *right;
 
     node(){
-        data=0;
         left = right = NULL;
+        data=0;
     }
 };
 
 struct node *start=NULL;
-struct node *temp;
-int flag=0;
 
-node *binary_tree(node *start,int data){
+node* insertnode(int arr[],node *start,int i,int n){
+    if(i<n){
+        struct node *temp = new node();
+        temp->data = arr[i];
+        start = temp;
 
-    if(start==NULL){
-        start = new node();
-        start->data = data;
-        start->left = start->right = NULL;
-    }
-    else{
-    temp = start;
-    struct node *parent;
-    while(temp != NULL){
-        if(flag==0){
-            flag=1;
-            parent = temp;
-            temp = temp->left;
-        }
-        else if(flag==1){
-            flag=0;
-            parent = temp;
-            temp = temp->right;
-        }
-    }
-
-    if(flag==1){
-        parent->left = new node();
-        parent->left->data = data;
-    }
-    else{
-        parent->right = new node();
-        parent->right->data = data;
-    }
+        start->left = insertnode(arr,start->left,2*i+1,n);
+        start->right = insertnode(arr,start->right,2*i+2,n);
     }
     return start;
 }
 
-
-
-
-void showdata(node *start,string s){
+void inorder_print(node *start,string s){
     if(start == NULL)
     return;
 
-    showdata(start->left,s+"->left");
+    inorder_print(start->left,s+"->left");
     cout<<s<<" "<<start->data<<endl;
-    showdata(start->right,s+"->right");
+    inorder_print(start->right,s+"->right");
 }
-
 
 int main(){
     int n=0;
     cin>>n;
-    int data=0;
+    int arr[n]={0};
     for(int i=0;i<n;i++){
-        cin>>data;
-    start = binary_tree(start,data);
+        cin>>arr[i];
     }
+
+    start = insertnode(arr,start,0,n);
 
     string s;
 
-    showdata(start,s);
-
+    inorder_print(start,s);
 }
