@@ -42,16 +42,16 @@ node* getdata(node* start,int data){
         return;
 
         cout<<start->data<<" ";
-        Inorder(start->left);
-        Inorder(start->right);
+        Preorder(start->left);
+        Preorder(start->right);
     }
 
     void Postorder(node* start){
         if(start == NULL) 
         return;
 
-        Inorder(start->left);
-        Inorder(start->right);
+        Postorder(start->left);
+        Postorder(start->right);
         cout<<start->data<<" ";
     }
 
